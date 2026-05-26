@@ -1,18 +1,19 @@
 import socket
 import time
 import random
-import sys
 
 HOST = '127.0.0.2'
 PORT = 8000
-msg = "Lista "+sys.argv[1].upper()
+
 def consumidor():
+    opcoes_produtos = ['Lista A', 'Lista B', 'Lista C']
     while True:
         try:
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 s.connect((HOST, PORT))
-                print(f'Conectado! Iniciando consumo da: [ {msg} ]')
+                print('Conectado! Iniciando consumo...')
                 while True:
+                    msg = random.choice(opcoes_produtos)
                     tempo = random.randint(7, 10)
                     print(f'Solicitando produto da {msg}...')
                     s.send(msg.encode('utf-8'))
