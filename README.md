@@ -45,13 +45,10 @@ python servidor_produtor.py
 ```
 
 ### 3. Inicie os Consumidores
-Você pode iniciar vários terminais de consumidores. Passe a letra da fila (`a`, `b` ou `c`) como argumento:
+Você pode iniciar vários terminais de consumidores. Eles farão as requisições de forma aleatória:
 ```bash
-# Consumindo itens "A"
-python consumidor.py a
-
-# Consumindo itens "B"
-python consumidor.py b
+# Iniciar o Consumidor (escolherá aleatoriamente A, B ou C)
+python consumidor.py
 ```
 
 ### 4. Inicie os Produtores
