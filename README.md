@@ -4,7 +4,7 @@ Este projeto é uma simulação de um sistema de fila de mensagens baseado na ar
 
 ## Arquitetura do Sistema
 
-![Diagrama da Arquitetura](trabalho-sistema-distribuido.drawio.png)
+![Diagrama da Arquitetura](consumidor-produtor.drawio.png)
 
 O sistema é dividido em quatro componentes principais, onde os servidores atuam como intermediários (brokers) entre quem produz os itens e quem os consome.
 
