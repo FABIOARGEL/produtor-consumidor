@@ -5,7 +5,7 @@ import time
 HOST = '127.0.0.2'
 PORT = 8000
 PRODUTOS = {'Lista A': [],'Lista B': [],'Lista C': []}
-
+estoque_lock = threading.Lock()
 
 def mensagens(conn, addr):
     print(f'[CLIENTE CONECTADO] {addr[0]}:{addr[1]}')
@@ -17,14 +17,22 @@ def mensagens(conn, addr):
                 break
             msg = data.decode('utf-8').strip()
             if "Lista " + msg in PRODUTOS:
-                PRODUTOS["Lista " + msg].append(msg)
-                print(f'[SERVIDOR DE CONSUMO] Recebeu produto "{msg}" | Total na Lista {msg}: {len(PRODUTOS["Lista " + msg])}')
+                with estoque_lock:
+                    PRODUTOS["Lista " + msg].append(msg)
+                    total = len(PRODUTOS["Lista " + msg])
+                print(f'[SERVIDOR DE CONSUMO] Recebeu produto "{msg}" | Total na Lista {msg}: {total}')
                 conn.send('ok'.encode('utf-8'))
             elif msg in PRODUTOS:
-                while not PRODUTOS[msg]:
+                produto = None
+                while True:
+                    with estoque_lock:
+                        if PRODUTOS[msg]:
+                            produto = PRODUTOS[msg].pop(0)
+                            restam = len(PRODUTOS[msg])
+                            break
                     time.sleep(1)
-                produto = PRODUTOS[msg].pop(0)
-                print(f'[ENTREGA] Consumidor levou "{produto}" da {msg} | Restam: {len(PRODUTOS[msg])}')
+                
+                print(f'[ENTREGA] Consumidor levou "{produto}" da {msg} | Restam: {restam}')
                 conn.send(produto.encode('utf-8'))
 
 def servidor_consumidor():
