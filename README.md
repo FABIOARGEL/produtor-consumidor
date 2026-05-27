@@ -34,7 +34,6 @@ O sistema é dividido em quatro componentes principais, onde os servidores atuam
 Para ver a simulação em funcionamento em todo o seu potencial, você deve abrir **vários terminais** e iniciar os componentes na seguinte ordem:
 
 ### 1. Inicie o Servidor de Consumo (Estoque Central)
-Este servidor deve ser o primeiro a subir, pois o servidor produtor precisará se conectar a ele.
 ```bash
 python servidor_consumidor.py
 ```
