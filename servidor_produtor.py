@@ -32,16 +32,16 @@ def enviar_para_consumidor():
                 while True:
                     for produto in PRODUTOS:
                         if PRODUTOS[produto]:
-                            msg = PRODUTOS[produto].pop(0)
+                            msg = PRODUTOS[produto][0]
                             try:
                                 s.send(msg.encode('utf-8'))
                                 resposta = s.recv(1024).decode('utf-8')
                                 if not resposta:
                                     raise socket.error("Conexão fechada pelo servidor")
-                                print(f'[TRANSFERÊNCIA] Enviado "{msg}" para estoque central. Resposta: {resposta}')
+                                if resposta.strip().lower() == 'ok':
+                                    PRODUTOS[produto].pop(0)
+                                    print(f'[TRANSFERÊNCIA] Enviado "{msg}" para servidor de consumo')
                             except (socket.error, ConnectionResetError) as e:
-                                # Devolve o produto para a fila caso o envio falhe
-                                PRODUTOS[produto].insert(0, msg)
                                 raise e
                     time.sleep(0.1)
         except (ConnectionRefusedError, ConnectionResetError, socket.error):
