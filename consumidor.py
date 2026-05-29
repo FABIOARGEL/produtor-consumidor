@@ -6,6 +6,7 @@ HOST = '127.0.0.2'
 PORT = 8000
 
 def consumidor():
+    """Função para o consumidor, que se conecta ao servidor de consumo e solicita produtos aleatoriamente, esperando um tempo aleatório entre as solicitações."""
     opcoes_produtos = ['Lista A', 'Lista B', 'Lista C']
     while True:
         try:

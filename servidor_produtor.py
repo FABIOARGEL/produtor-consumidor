@@ -8,6 +8,8 @@ PORT = 8000
 PRODUTOS = {'Lista A': [],'Lista B': [],'Lista C': []}
 
 def clientes_produtores(conn, addr):
+    """Função para lidar com conexões de produtores, recebendo mensagens e adicionando aos produtos correspondentes.
+    """
     print(f'[PRODUTOR CONECTADO] {addr[0]}:{addr[1]}')
     with conn:
         while True:
@@ -22,6 +24,7 @@ def clientes_produtores(conn, addr):
                 print(f'[PRODUÇÃO] Produto "{msg}" adicionado à fila! ({status})')
 
 def enviar_para_consumidor():
+    """Função para enviar produtos para o servidor consumidor, tentando reconectar em caso de falha."""
     C_HOST = '127.0.0.2'
     C_PORT = 8000
     while True:
@@ -49,6 +52,7 @@ def enviar_para_consumidor():
             time.sleep(2)
 
 def servidor_produtor():
+    """Função para o servidor produtor, que aceita conexões de produtores e inicia uma thread para enviar produtos ao servidor consumidor."""
     consumidor = threading.Thread(
         target=enviar_para_consumidor,
         daemon=True

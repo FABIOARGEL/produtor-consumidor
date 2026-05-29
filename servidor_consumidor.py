@@ -8,6 +8,8 @@ PRODUTOS = {'Lista A': [],'Lista B': [],'Lista C': []}
 estoque_lock = threading.Lock()
 
 def mensagens(conn, addr):
+    """Função para lidar com conexões de consumidores, recebendo mensagens e adicionando aos produtos correspondentes.
+    """
     print(f'[CLIENTE CONECTADO] {addr[0]}:{addr[1]}')
     with conn:
         while True:
@@ -36,6 +38,7 @@ def mensagens(conn, addr):
                 conn.send(produto.encode('utf-8'))
 
 def servidor_consumidor():
+    """Função para o servidor consumidor, que aceita conexões de consumidores e inicia uma thread para lidar com cada conexão."""
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind((HOST, PORT))
         s.listen()

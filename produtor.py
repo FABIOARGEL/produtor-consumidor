@@ -8,6 +8,7 @@ PORT = 8000
 
 msg = sys.argv[1].upper()
 def produtor():
+    """Função para o produtor, que se conecta ao servidor de produção e envia produtos aleatoriamente, esperando um tempo aleatório entre as produções."""
     while True:
         try:
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
