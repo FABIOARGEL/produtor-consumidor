@@ -17,7 +17,7 @@ def produtor():
                 while True:
                     s.send(msg.encode('utf-8'))
                     print(f'[FABRICADO] Produto {msg} criado e enviado!')
-                    tempo = random.randint(5, 10)
+                    tempo = 1
                     print(f'Aguardando {tempo}s para produzir o próximo...')
                     time.sleep(tempo)
         except (ConnectionRefusedError, ConnectionResetError, socket.error):

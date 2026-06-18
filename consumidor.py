@@ -15,7 +15,7 @@ def consumidor():
                 print('Conectado! Iniciando consumo...')
                 while True:
                     msg = random.choice(opcoes_produtos)
-                    tempo = random.randint(7, 10)
+                    tempo = random.choice([0.5, 1])
                     print(f'Solicitando produto da {msg}...')
                     s.send(msg.encode('utf-8'))
                     resposta = s.recv(1024).decode('utf-8')
